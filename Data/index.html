@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Pet Feeder Dashboard</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="/style.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <header class="app-header">
+      <div class="title-block">
+        <div class="logo-pill">
+          <span>🐾</span>
+        </div>
+        <div class="title-text">
+          <h1>
+            Pet Feeder
+            <span class="title-badge">ESP32 • Web UI</span>
+          </h1>
+          <p>Monitor bowl weight, upcoming meals and trigger manual feeding.</p>
+        </div>
+      </div>
+      <div class="header-meta">
+        <div>
+          <span class="status-dot"></span>
+          <span>Online (simulation)</span>
+        </div>
+        <div class="ip-line">IP: shown in Serial Monitor</div>
+      </div>
+    </header>
+
+    <main class="grid">
+      <!-- LEFT: Status + schedule -->
+      <section>
+        <!-- Live bowl weight -->
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title">Live Bowl Weight</div>
+            <span class="pill">HX711</span>
+          </div>
+          <div class="main-stat">
+            <strong id="weightValue">0.0</strong>
+            <span>grams</span>
+          </div>
+          <div class="sub-row">
+            <div>
+              <span class="chip-label">Feeding</span><br />
+              <span id="feedingState" class="badge-text">Idle</span>
+            </div>
+            <div>
+              <span class="chip-label">Next feed</span><br />
+              <span id="nextTimeLabel">--:--</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Schedule -->
+        <div class="card" style="margin-top: 14px;">
+          <div class="card-header">
+            <div class="card-title">Schedule</div>
+            <span class="pill">3 slots</span>
+          </div>
+          <ul class="slots-list">
+            <li class="slot-item" id="slot-row-0">
+              <div class="slot-left">
+                <div class="chip-label">Slot 1</div>
+                <input type="time" id="slot0-time" value="08:00" />
+              </div>
+              <div class="slot-right">
+                <input
+                  type="number"
+                  id="slot0-weight"
+                  value="0"
+                  min="0"
+                  max="5000"
+                />
+                <span class="unit">g</span>
+                <button class="btn-secondary slot-save" data-index="0">
+                  Save
+                </button>
+              </div>
+            </li>
+            <li class="slot-item" id="slot-row-1">
+              <div class="slot-left">
+                <div class="chip-label">Slot 2</div>
+                <input type="time" id="slot1-time" value="12:00" />
+              </div>
+              <div class="slot-right">
+                <input
+                  type="number"
+                  id="slot1-weight"
+                  value="0"
+                  min="0"
+                  max="5000"
+                />
+                <span class="unit">g</span>
+                <button class="btn-secondary slot-save" data-index="1">
+                  Save
+                </button>
+              </div>
+            </li>
+            <li class="slot-item inactive" id="slot-row-2">
+              <div class="slot-left">
+                <div class="chip-label">Slot 3</div>
+                <input type="time" id="slot2-time" value="18:00" />
+              </div>
+              <div class="slot-right">
+                <input
+                  type="number"
+                  id="slot2-weight"
+                  value="0"
+                  min="0"
+                  max="5000"
+                />
+                <span class="unit">g</span>
+                <button class="btn-secondary slot-save" data-index="2">
+                  Save
+                </button>
+              </div>
+            </li>
+          </ul>
+          <p class="small-note">Set weight to 0g to disable a slot.</p>
+        </div>
+      </section>
+
+      <!-- RIGHT: Manual feed -->
+      <section>
+        <div class="card manual-card">
+          <div class="card-header">
+            <div class="card-title">Manual Feeding</div>
+            <div class="badge-status">
+              <span class="badge-dot" id="badgeDot"></span>
+              <span id="badgeText">Ready to feed</span>
+            </div>
+          </div>
+
+          <div class="manual-main">
+            <div class="manual-main-left">
+              <div class="manual-title">Feed now</div>
+              <div class="manual-sub">
+                Dispense a one-off portion directly to the bowl.
+              </div>
+              <div class="manual-input-row">
+                <input
+                  type="number"
+                  id="manualAmount"
+                  value="100"
+                  min="0"
+                  max="5000"
+                />
+                <span>grams</span>
+              </div>
+            </div>
+            <button type="button" id="manualBtn">
+              <span>Start feeding</span>
+              <span>⏵</span>
+            </button>
+          </div>
+
+          <p id="manualMsg" class="log-message">
+            Uses the same logic as the hardware buttons.
+          </p>
+        </div>
+
+        <div class="card" style="margin-top: 14px;">
+          <div class="card-header">
+            <div class="card-title">Device</div>
+            <span class="pill">ESP32 • HX711 • RTC • Servo</span>
+          </div>
+          <p class="small-note">
+            This dashboard talks to your ESP32 over
+            <code>/api/status</code>, <code>/api/manual-feed</code> and
+            <code>/api/set-slot</code>.
+          </p>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="/app.js"></script>
+</body>
+</html>
