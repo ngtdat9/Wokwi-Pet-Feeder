@@ -357,8 +357,26 @@
               <h2 class="title is-3 tech-header-box">Methodology</h2>
               <div class="content has-text-justified">
                 <p style="margin-bottom: 20px;">
-                   The system utilizes IoT sensors connected to a central controller to manage servo motors for dispensing food and load cells for weighing.
-                </p>
+  The Web UI communicates with the ESP32-based firmware through a REST API hosted on the device. 
+  User interactions such as manual feeding or status requests are sent as HTTP GET requests, 
+  and the ESP32 responds with JSON-formatted data.
+</p>
+<ul>
+  <li>
+    <strong>Frontend:</strong> Built using HTML, CSS (Bulma), and JavaScript to create a responsive and intuitive dashboard.
+  </li>
+  <li>
+    <strong>API Layer:</strong> Defines endpoints such as <code>/status</code> and <code>/api/manual-feed</code> 
+    to control the feeder and retrieve sensor data.
+  </li>
+  <li>
+    <strong>Integration:</strong> JavaScript fetch calls connect the UI to the ESP32 WebServer running in the Wokwi simulation.
+  </li>
+</ul>
+<p style="margin-top: 15px;">
+  This separation between firmware logic and web interface allows modular development, 
+  easier debugging, and future scalability such as mobile app integration.
+</p>
                 <div class="columns">
                   <div class="column">
                      <div class="image-container">
