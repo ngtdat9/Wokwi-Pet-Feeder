@@ -2,300 +2,408 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <!-- Meta tags for social media banners, these should be filled in appropriatly as they are your "business card" -->
-  <!-- Replace the content tag with appropriate information -->
-  <meta name="description" content="DESCRIPTION META TAG">
-  <meta property="og:title" content="SOCIAL MEDIA TITLE TAG"/>
-  <meta property="og:description" content="SOCIAL MEDIA DESCRIPTION TAG TAG"/>
+  <meta name="description" content="IoT Pet Feeder Project">
+  <meta property="og:title" content="IoT Pet Feeder"/>
+  <meta property="og:description" content="Smart IoT Pet Feeder with Web UI and Weight Monitoring"/>
   <meta property="og:url" content="URL OF THE WEBSITE"/>
-  <!-- Path to banner image, should be in the path listed below. Optimal dimenssions are 1200X630-->
   <meta property="og:image" content="static/image/your_banner_image.png" />
   <meta property="og:image:width" content="1200"/>
   <meta property="og:image:height" content="630"/>
 
-
-  <meta name="twitter:title" content="TWITTER BANNER TITLE META TAG">
-  <meta name="twitter:description" content="TWITTER BANNER DESCRIPTION META TAG">
-  <!-- Path to banner image, should be in the path listed below. Optimal dimenssions are 1200X600-->
-  <meta name="twitter:image" content="static/images/your_twitter_banner_image.png">
-  <meta name="twitter:card" content="summary_large_image">
-  <!-- Keywords for your paper to be indexed by-->
-  <meta name="keywords" content="KEYWORDS SHOULD BE PLACED HERE">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-
   <link rel="icon" type="image/x-icon" href="static/images/sejong.png">
-  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
-  rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro|Orbitron:400,700|Roboto+Mono" rel="stylesheet">
 
   <link rel="stylesheet" href="static/css/bulma.min.css">
   <link rel="stylesheet" href="static/css/bulma-carousel.min.css">
   <link rel="stylesheet" href="static/css/bulma-slider.min.css">
   <link rel="stylesheet" href="static/css/fontawesome.all.min.css">
-  <link rel="stylesheet"
-  href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
   <link rel="stylesheet" href="static/css/index.css">
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script src="https://documentcloud.adobe.com/view-sdk/main.js"></script>
   <script defer src="static/js/fontawesome.all.min.js"></script>
   <script src="static/js/bulma-carousel.min.js"></script>
   <script src="static/js/bulma-slider.min.js"></script>
   <script src="static/js/index.js"></script>
-  <meta charset="UTF-8">
+
   <title>IoT Pet Feeder</title>
+  
   <style>
-    .publication-title {
-      font-size: 3rem;
-      font-weight: bold;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
+    /* --- DARK TECH THEME VARIABLES --- */
+    :root {
+      --bg-dark: #0a0a12;
+      --bg-panel: #13131f;
+      --text-main: #e0e0e0;
+      --text-muted: #a0a0a0;
+      --accent-cyan: #00f2ea;
+      --accent-purple: #7928ca;
+      --accent-green: #00f260;
+      --sidebar-width: 250px;
+      --glow-shadow: 0 0 15px rgba(0, 242, 234, 0.2);
     }
 
-    .title-text {
-    background: linear-gradient(90deg, #00f260, #0575e6, #ff0080, #7928ca);
-    background-size: 200% 200%;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    text-shadow:
-    2px 2px 4px rgba(0, 0, 0, 0.1),
-    4px 4px 8px rgba(0, 0, 0, 0.2);
-    animation: gradientShift 30s infinite ease-in-out;
-  }
+    body, html {
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      font-family: 'Noto Sans', sans-serif;
+      height: 100%;
+      scroll-behavior: smooth;
+    }
+
+    /* --- SIDEBAR STYLES --- */
+    .tech-sidebar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: var(--sidebar-width);
+      height: 100vh;
+      background: rgba(19, 19, 31, 0.95);
+      border-right: 1px solid rgba(255,255,255,0.1);
+      padding: 2rem 1rem;
+      z-index: 1000;
+      display: flex;
+      flex-direction: column;
+      backdrop-filter: blur(10px);
+    }
+
+    .tech-sidebar .logo {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1.5rem;
+      color: white;
+      margin-bottom: 2rem;
+      text-align: center;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      background: linear-gradient(90deg, var(--accent-green), var(--accent-cyan));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .tech-sidebar a {
+      color: var(--text-muted);
+      padding: 12px 15px;
+      text-decoration: none;
+      font-family: 'Roboto Mono', monospace;
+      font-size: 0.9rem;
+      transition: all 0.3s ease;
+      border-left: 2px solid transparent;
+      margin-bottom: 5px;
+    }
+
+    .tech-sidebar a:hover {
+      color: var(--accent-cyan);
+      background: rgba(255,255,255,0.05);
+      border-left: 2px solid var(--accent-cyan);
+      padding-left: 20px;
+    }
+
+    .tech-sidebar .social-icons {
+      margin-top: auto;
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+    }
+
+    /* --- MAIN CONTENT WRAPPER --- */
+    .main-content {
+      margin-left: var(--sidebar-width);
+      padding: 0;
+      min-height: 100vh;
+      background: radial-gradient(circle at top right, rgba(121, 40, 202, 0.1), transparent 40%);
+    }
+
+    /* --- TYPOGRAPHY & TITLES --- */
+    .title, .subtitle {
+      color: white !important;
+    }
+    
+    .publication-title {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 3.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .title-gradient {
+      background: linear-gradient(90deg, var(--accent-green), var(--accent-cyan), var(--accent-purple));
+      background-size: 200% 200%;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: gradientShift 10s infinite ease-in-out;
+    }
 
     @keyframes gradientShift {
-      0% { background-position: 48% 50%; }
-      50% { background-position: 52% 50%; }
-      100% { background-position: 48% 50%; }
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
     }
-    .publication-links .button {
-  background: linear-gradient(45deg, #00f260, #0575e6, #ff0080, #7928ca);
-  background-size: 300% 300%;
-  color: white !important;
-  font-weight: 600;
-  border: none;
-  transition: background-position 3s ease;
-  text-shadow: 0 0 px black;
-}
 
-.publication-links .button:hover {
-  background-position: 100% 50%;
-  color: #fff !important;
-}
+    /* --- GLASSMORPHISM CARDS --- */
+    .tech-box {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 15px;
+      padding: 2rem;
+      backdrop-filter: blur(5px);
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+      margin-bottom: 2rem;
+    }
 
-.publication-links .button .icon i,
-.publication-links .button .icon img {
-  filter: drop-shadow(0 0 1px rgba(0,0,0,0.7));
-  vertical-align: middle;
-}
+    .tech-header-box {
+        background: linear-gradient(90deg, rgba(121, 40, 202, 0.2), rgba(0, 242, 96, 0.1));
+        border-radius: 10px;
+        padding: 10px;
+        margin-bottom: 20px;
+        border: 1px solid rgba(255,255,255,0.1);
+        text-align: center;
+    }
 
-/* 让按钮间距更合理 */
-.publication-links .link-block {
-  margin: 0 0.3rem;
-}
+    /* --- BUTTONS --- */
+    .button.is-dark {
+      background-color: transparent;
+      border: 1px solid var(--accent-cyan);
+      color: var(--accent-cyan) !important;
+      font-family: 'Roboto Mono', monospace;
+      transition: all 0.3s ease;
+      box-shadow: 0 0 5px rgba(0, 242, 234, 0.1);
+    }
 
+    .button.is-dark:hover {
+      background-color: var(--accent-cyan);
+      color: #000 !important;
+      box-shadow: 0 0 20px rgba(0, 242, 234, 0.6);
+    }
+
+    /* --- MEDIA CONTAINERS --- */
+    .video-container {
+      border-radius: 15px;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.1);
+      box-shadow: var(--glow-shadow);
+    }
+
+    .image-container img {
+        border-radius: 15px;
+        border: 1px solid rgba(255,255,255,0.1);
+    }
+
+    /* --- AUTHORS --- */
+    .author-block a {
+      color: var(--accent-cyan);
+      text-decoration: none;
+    }
+    .author-block a:hover {
+      color: var(--accent-green);
+      text-decoration: underline;
+    }
+
+    /* --- FOOTER --- */
+    .footer {
+        background-color: #050508;
+        color: #888;
+        padding: 3rem 1.5rem;
+    }
+
+    /* --- RESPONSIVE MOBILE --- */
+    @media screen and (max-width: 768px) {
+      .tech-sidebar {
+        position: relative;
+        width: 100%;
+        height: auto;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px;
+        overflow-x: auto;
+      }
+      .tech-sidebar .logo { margin-bottom: 0; font-size: 1.2rem; }
+      .tech-sidebar nav { display: flex; gap: 10px; }
+      .tech-sidebar .social-icons { display: none; }
+      
+      .main-content {
+        margin-left: 0;
+      }
+      
+      .publication-title { font-size: 2rem; }
+    }
   </style>
 </head>
 <body>
 
-  <section class="hero">
-    <div class="hero-body">
+  <aside class="tech-sidebar">
+    <div class="logo">
+      <i class="fas fa-paw"></i> IoT Feeder
+    </div>
+    <nav>
+      <a href="#header"><i class="fas fa-home"></i> Home</a>
+      <a href="#demo"><i class="fas fa-play-circle"></i> Demo</a>
+      <a href="#overview"><i class="fas fa-info-circle"></i> Overview</a>
+      <a href="#method"><i class="fas fa-cogs"></i> Method</a>
+      <a href="https://github.com/ngtdat9/Wokwi-Pet-Feeder" target="_blank"><i class="fab fa-github"></i> Code</a>
+    </nav>
+    <div class="social-icons">
+      <a href="https://github.com/ngtdat9"><i class="fab fa-github fa-lg"></i></a>
+      <a href="#"><i class="fas fa-envelope fa-lg"></i></a>
+    </div>
+  </aside>
+
+  <div class="main-content">
+
+    <section class="hero" id="header">
+      <div class="hero-body">
+        <div class="container is-max-desktop">
+          <div class="columns is-centered">
+            <div class="column has-text-centered">
+              <h1 class="title publication-title">
+                <span class="title-gradient">IoT Pet Feeder</span>
+              </h1>
+              
+              <div class="is-size-5 publication-authors" style="margin-bottom: 1.5rem;">
+                <span class="author-block">
+                  <a href="https://github.com/ngtdat9" target="_blank">NGO THANH DAT</a><sup>1</sup>,
+                </span>
+                <span class="author-block">
+                  <a href="https://github.com/CloudTree-comet" target="_blank">LIM MINSEOK</a><sup>2</sup>,
+                </span>
+                <span class="author-block">
+                  <a href="https://github.com/PisangOyeng16" target="_blank">KHALIFA MUHAMMAD HAFIZ</a><sup>3</sup>
+                </span>
+                <br>
+                <span class="author-block" style="font-size: 0.9em; color: var(--text-muted);">
+                  <a href="https://github.com/zubair1811" target="_blank">Class Incharge: Muhammad Zubair Islam</a><sup>4</sup>
+                </span>
+              </div>
+
+              <div class="is-size-6 publication-authors" style="color: var(--text-muted);">
+                <span class="author-block"><sup>1</sup> Sejong University, Computer Science & Engineering</span><br>
+                <span class="author-block"><sup>2, 4</sup> Sejong University, AI and Robotics</span><br>
+                <span class="author-block"><sup>3</sup> Sejong University, Aerospace Engineering</span>
+              </div>
+
+              <div class="publication-links" style="margin-top: 2rem;">
+                <span class="link-block">
+                  <a href="https://www.canva.com/design/DAG7X6GOftk/zATzc1avx9dPd-9kRf2eaQ/edit" target="_blank"
+                     class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon"><i class="fas fa-file-alt"></i></span>
+                    <span>Slides</span>
+                  </a>
+                </span>
+                <span class="link-block">
+                  <a href="https://github.com/ngtdat9/Wokwi-Pet-Feeder" target="_blank"
+                     class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon"><i class="fab fa-github"></i></span>
+                    <span>Source Code</span>
+                  </a>
+                </span>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="demo">
       <div class="container is-max-desktop">
         <div class="columns is-centered">
-          <div class="column has-text-centered">
-            <h1 class="title publication-title">
-    <span class="title-text">IoT Pet Feeder </span>
-  </h1>
-            <div class="is-size-5 publication-authors">
-              <!-- Paper authors -->
-              <span class="author-block">
-                    <a href="https://github.com/ngtdat9" target="_blank">NGO THANH DAT</a><sup>1</sup>,
-                    <span class="author-block">
-                      <a href="https://github.com/CloudTree-comet" target="_blank">LIM MINSEOK</a><sup>2</sup>,
-                    </span>
-                    <span class="author-block">
-                      <a href="https://github.com/PisangOyeng16" target="_blank">KHALIFA MUHAMMAD HAFIZ</a><sup>3</sup>
-                    </span>  </br>
-                    <span class="author-block">
-                      <a href="https://github.com/zubair1811"  target="_blank">Class Incharge: Muhammad Zubair Islam</a><sup>4</sup>,
-                    </span>
-                    <br>
-                    
+          <div class="column is-full">
+            <div class="tech-box">
+              <h2 class="title is-3 has-text-centered tech-header-box">
+                Project Demo
+              </h2>
+              <div class="video-container">
+                <video poster="" id="tree" autoplay controls muted loop style="display: block; width: 100%;">
+                  <source src="static/videos/pet-demo.mp4" type="video/mp4">
+                  Your browser does not support the video tag.
+                </video>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="overview">
+      <div class="container is-max-desktop">
+        <div class="columns is-centered">
+          <div class="column is-full">
+            <div class="tech-box">
+              <h2 class="title is-3 tech-header-box">Overview</h2>
+              <div class="content has-text-justified" style="color: var(--text-main);">
+                <p>
+                  <strong>Smart IoT Pet Feeding System</strong> designed to automate pet care.
+                </p>
+                <ul style="list-style: none; padding-left: 0;">
+                  <li style="margin-bottom: 10px;"><i class="fas fa-check" style="color: var(--accent-green);"></i> <strong>Feeding Automation:</strong> Ensures pets are fed consistently and on time.</li>
+                  <li style="margin-bottom: 10px;"><i class="fas fa-clock" style="color: var(--accent-purple);"></i> <strong>Scheduled Feeding:</strong> Simplifies meal times with automated schedules.</li>
+                  <li style="margin-bottom: 10px;"><i class="fas fa-weight" style="color: var(--accent-cyan);"></i> <strong>Weight Monitoring:</strong> Tracks food consumption for health management.</li>
+                </ul>
+                <div class="image-container" style="margin-top: 20px; text-align: center;">
+                  <img src="static/images/MyPlan.png" alt="Overview Plan" style="max-height: 400px;">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="method">
+      <div class="container is-max-desktop">
+        <div class="columns is-centered">
+          <div class="column is-full">
+            <div class="tech-box">
+              <h2 class="title is-3 tech-header-box">Methodology</h2>
+              <div class="content has-text-justified">
+                <p style="margin-bottom: 20px;">
+                   The system utilizes IoT sensors connected to a central controller to manage servo motors for dispensing food and load cells for weighing.
+                </p>
+                <div class="columns">
+                  <div class="column">
+                     <div class="image-container">
+                        <img src="static/images/1.png" alt="Method 1" style="width: 100%;">
+                     </div>
                   </div>
-
-                </br>
-                <div class="is-size-5 publication-authors">
-                <div style="text-align: center; margin-bottom: 5px;">
-                    <span class="author-block"><sup>1</sup> Sejong University, Department of Computer Science and Engineering</span> </br>
-                    <span class="author-block"><sup>2</sup> Sejong University, Department of AI and Robotics</span> </br>
-                    <span class="author-block"><sup>3</sup> Sejong University, Department of Aerospace Engineering</span> </br>
-                    <span class="author-block"><sup>4</sup> Sejong University, Department of AI and Robotics</span>
+                  <div class="column">
+                    <div class="image-container">
+                        <img src="static/images/2.png" alt="Method 2" style="width: 100%;">
+                    </div>
+                  </div>
                 </div>
-            </div>
-            
-        
-            
-
-            <div class="column has-text-centered">
-                <div class="publication-links">
-
-                    <!-- Project Slides -->
-                    <span class="link-block">
-                        <a href="https://www.canva.com/design/DAG7X6GOftk/zATzc1avx9dPd-9kRf2eaQ/edit?utm_content=DAG7X6GOftk&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton" target="_blank"
-                           class="external-link button is-normal is-rounded is-dark">
-                            <span class="icon">
-                                <i class="fas fa-file-alt" style="color: #D3D3D3;"></i>
-                              </span>
-                            <span>Slides</span>
-                        </a>
-                    </span>
-            
-
-                    <!-- Github link -->
-                    <span class="link-block">
-                        <a href="https://github.com/ngtdat9/Wokwi-Pet-Feeder" target="_blank"
-                           class="external-link button is-normal is-rounded is-dark">
-                            <span class="icon">
-                                <i class="fab fa-github" style="color: black;"></i>
-                            </span>
-                            <span>Code</span>
-                        </a>
-                    </span>
-            
-                </div>
-            </div>
-            
-
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-    </div>
-  </section>
+    </section>
 
-  <section class="section hero is-small">
-    <div class="container is-max-desktop">
-    <div class="columns is-centered">
-      <div class="column is-full">
-      <div class="content">
-            <h2 class="title is-3 has-text-centered" style="background: linear-gradient(45deg, #f200b571, #eb419f8e, #0077ff5b, #2881cad7); color: white; padding: 10px; border-radius: 10px; box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);">
-            Welcome to Use This Project
-            </h2>
-          <div class="level-set has-text-justified">
-            <p></p>
-          </div>
-          <div style="border: none; border-radius: 15px; box-shadow: 0 12px 24px rgba(0, 0, 0, 0.4); overflow: hidden; background: linear-gradient(45deg, #0575e6, #7928ca81); padding: 10px;">
-            <video poster="" id="tree" autoplay controls muted loop height="100%" style="display: block; width: 100%; border-radius: 15px; box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);">
-              <!-- Your video here -->
-              <source src="static/videos/pet-demo.mp4" type="video/mp4">
-            </video>
-          </div>
+    <section class="section" id="BibTeX">
+      <div class="container is-max-desktop content">
+        <div class="tech-box">
+          <h2 class="title is-4">BibTeX</h2>
+          <pre style="background-color: #000; color: var(--accent-green); border: 1px solid #333;"><code>@misc{iotpetfeeder2025,
+  author = {Dat, Ngo Thanh and Minseok, Lim and Hafiz, Khalifa},
+  title = {IoT Pet Feeder},
+  year = {2025},
+  publisher = {Sejong University}
+}</code></pre>
         </div>
       </div>
-    </div>
-  </div>
-</section>
+    </section>
 
-
-
-<!-- Paper abstract -->
-<section class="section hero is-small">
-  <div class="container is-max-desktop">
-    <div class="columns is-centered">
-      <div class="column is-full">
-        <div class="content">
-         <h2 class="title is-3" style="background: linear-gradient(45deg, #f200b571, #eb419f8e, #0077ff5b, #2881cad7); color: white; padding: 10px; border-radius: 10px; box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3); text-align: center;">
-           Overview
-         </h2>
-        <div class="content has-text-justified">
-            Overview of Smart IoT Pet Feeding.
-            <strong>(Feeding Automation)</strong>: Ensures pets are fed consistently and on time.
-            <span style="color: #ff69b4;">(Scheduled Feeding):</span> Simplifies meal times with automated schedules for pets 
-            <span style="color: #007bff;">(Weight Monitoring)</span>, Tracks food consumption for better pet health management 
-          </p>
-          <img src="static/images/MyPlan.png" alt="Teaser GIF" height="100%">
-          <p class="subtitle has-text-centered">
-        </div>
-      </div>
-    </div>
-    </div>
-  </div>
-</section>
-
-<!-- End paper abstract -->
-
-<!-- Teaser video-->
-
-
-<section class="section hero is-small">
-  <div class="container is-max-desktop">
-    <div class="columns is-centered">
-      <div class="column is-full">
-        <div class="content">
-         <h2 class="title is-3" style="background: linear-gradient(45deg, #f200b571, #eb419f8e, #0077ff5b, #2881cad7); color: white; padding: 10px; border-radius: 10px; box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3); text-align: center;">
-           Method
-         </h2>
-          <div class="content has-text-justified" style="font-size: 4.5 rem;"></div>
-          <strong>Overview of Smart IoT Pet Feeding.</strong>
-          <strong>Feeding Automation</strong> 
-          <strong>Scheduled Feeding</strong> 
-           <strong>Weight Monitoring</strong> 
-          </div>
-          </p>
-          </p>
-          <div style="text-align: center;">
-          <img src="static/images/1.png" alt="MY ALT TEXT" style="display: block; width: 100%; border-radius: 15px; box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);">
-          <img src="static/images/2.png" alt="MY ALT TEXT" style="display: block; width: 100%; border-radius: 15px; box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);">
-        </div>
-      
-      </p>
-      <div style="text-align: center;">
-      </p>
-      </div>   
-      </div>
-    </div>
-  </div>
-</section>
-
-
-
-
-<!--End BibTex citation -->
-<section class="section" id="BibTeX">
-  <div class="container is-max-desktop content">
-    <h2 class="title">BibTeX</h2>
-    <pre><code> Commingh Soon...
-</code></pre>
-  </div>
-</section>
-
-
-
-  <footer class="footer">
-  <div class="container">
-    <div class="columns is-centered">
-      <div class="column is-8">
-        <div class="content">
-
+    <footer class="footer">
+      <div class="container">
+        <div class="content has-text-centered">
           <p>
-            This page was built using the <a href="https://github.com/eliahuhorwitz/Academic-project-page-template" target="_blank">Academic Project Page Template</a> which was adopted from the <a href="https://nerfies.github.io" target="_blank">Nerfies</a> project page.
-            You are free to borrow the of this website, we just ask that you link back to this page in the footer. <br> This website is licensed under a <a rel="license"  href="http://creativecommons.org/licenses/by-sa/4.0/" target="_blank">Creative
-            Commons Attribution-ShareAlike 4.0 International License</a>.
+            <a href="https://github.com/ngtdat9" style="color: var(--accent-cyan);">IoT Pet Feeder Project</a> | Sejong University
           </p>
-
+          <p style="font-size: 0.8rem; opacity: 0.6;">
+            Template adapted from Nerfies. Licensed under CC BY-SA 4.0.
+          </p>
         </div>
       </div>
-    </div>
-  </div>
-</footer>
+    </footer>
 
-<!-- Statcounter tracking code -->
-  
-<!-- You can add a tracker to track page visits by creating an account at statcounter.com -->
-
-    <!-- End of Statcounter Code -->
-
-  </body>
-  </html>
+  </div> </body>
+</html>
